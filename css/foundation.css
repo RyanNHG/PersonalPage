@@ -2038,7 +2038,6 @@ meta.foundation-mq-topbar {
 .js-generated {
   display: block; }
 
-@media only screen and (min-width: 40.0625em) {
   .top-bar {
     background: #333333;
     overflow: visible; }
@@ -2215,7 +2214,9 @@ meta.foundation-mq-topbar {
     overflow: visible;
     clip: auto;
     display: block;
-    position: absolute !important; } }
+    position: absolute !important; }
+
+
 .breadcrumbs {
   border-style: solid;
   border-width: 1px;

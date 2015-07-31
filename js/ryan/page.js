@@ -1,9 +1,12 @@
 //  page.js
 
+const VERSION = 1;
+
 var page = {
-    
+
     //  onReady - called on page ready.
-    onReady : function() {
+    onReady : function() 
+    {
 
         // Set up hashchange listener
         $(window).on('hashchange', function () {
@@ -14,41 +17,54 @@ var page = {
         page.loadFromHash();
     },
 
-    // load - loads the specified page
+    //  load - loads the specified page
     load : function(page)
     {
         //  Triggers a page load from 'hashchange' handler
         window.location.hash = page;
     },
 
-    //  load - loads the specified page from the url.
+    //  loadFromHash - loads the specified page from the url.
     loadFromHash : function()
     {
         //  Get page from url
-        var page = window.location.hash.substring(1);
-        console.log('Loading ' + page);
+        var pageName = window.location.hash.substring(1);
 
-        //  Set correct nav link to active.
-        var allLinks = $('.top-bar-section .left li');
-        var clickedLink = $('.top-bar-section .left li a[data-link="' + page + '"').parent();
+        //  Update active navbar link
+        index.updateNavLinks(pageName);
 
-        allLinks.removeClass('active');
-        clickedLink.addClass('active');
+        //  Get variables for page loading
+        var pageContent = 'pages/'+pageName+'.html?version='+VERSION;
 
-        page = 'pages/'+page+'.html';
+        //  Show spinner
+        $('#spinnerPage').show();
 
-        //  Insert loaded page.
-        $('#pageMain').fadeOut(function(){
-            $('#pageMain').load(page,function(response, status){
+        //  Fade out existing page
+        $('#pageMain').fadeOut(function()
+        {            
+            //  Load new pages content
+            $('#pageMain').load(pageContent, function(response, status)
+            {
+                //  If something went wrong, load the main page
                 if(status == 'error')
                     window.location.hash = 'about-me';
                 else 
-                    $('#pageMain').fadeIn();
-            })
+                {
+                    //  Call the onPageLoad callback
+                    window[pageName.replace('-','')]['onPageLoad']();
+
+                    //  Fade in the new page
+                    $('#pageMain').fadeIn(function()
+                    {                    
+                        //  Call the onPageShow callback
+                        window[pageName.replace('-','')]['onPageShow']();
+                        //  Hide spinner
+                        $('#spinnerPage').hide();
+                    });
+                }
+            });
         });
     }
-
-    // invalidPage - returns 'true' if page cannot be found in list of pages
 
 
 };

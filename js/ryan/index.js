@@ -21,6 +21,17 @@ var index = {
     {
         //  Load page
         page.load($(this).attr('data-link'));
+    },
+
+    //  updateNavLinks - Updates navbar links to reflect new page is loaded
+    updateNavLinks : function(page) {
+                //  Set active nav link to inactive.
+        var activeLink = $('.top-bar-section .left li.active');
+        activeLink.removeClass('active');        
+
+        //  Set clicked nav link to active.
+        var clickedLink = $('.top-bar-section .left li a[data-link="' + page + '"').parent();
+        clickedLink.addClass('active');
     }
 };
 

@@ -16,8 +16,36 @@ a[disabled] {
 }
 
 #pageMain > .row {
-	padding-top: 15px;
+	padding: 1rem .5rem 0;
 	height: 100%;
 	background-color: #fff;
+	overflow: auto;
 }
 
+.row > .columns {
+    padding: 0px 0.5rem;
+}
+
+.row .panel {
+    margin-bottom: 1rem;
+}
+
+/*	SPINNER  */
+body > span.spinner {
+    position: fixed;
+    top: calc(50vh - 1em);
+    left: calc(50vw - 1em);
+    font-size: calc(2em);
+    z-index: -1;
+}
+
+/* ABOUT-ME */
+.panel.link-panel {
+	text-align: center;
+    font-size: 4rem;
+    cursor: pointer;
+}
+
+.panel.link-panel:hover {
+	background-color: #d8d8d8;
+}
